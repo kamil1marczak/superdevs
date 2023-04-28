@@ -1,0 +1,21 @@
+pytz # https://github.com/stub42/pytz
+python-slugify # https://github.com/un33k/python-slugify
+Pillow # https://github.com/python-pillow/Pillow
+argon2-cffi # https://github.com/hynek/argon2_cffi
+redis # https://github.com/redis/redis-py
+hiredis # https://github.com/redis/hiredis-py
+uvicorn[standard] # https://github.com/encode/uvicorn
+petl # https://github.com/petl-developers/petl
+clients # https://github.com/coady/clients
+requests # https://github.com/psf/requests
+attrs # https://github.com/python-attrs/attrs
+
+# Django
+# ------------------------------------------------------------------------------
+django # https://www.djangoproject.com/
+django-environ # https://github.com/joke2k/django-environ
+django-model-utils # https://github.com/jazzband/django-model-utils
+django-allauth # https://github.com/pennersr/django-allauth
+django-crispy-forms # https://github.com/django-crispy-forms/django-crispy-forms
+crispy-bootstrap5 # https://github.com/django-crispy-forms/crispy-bootstrap5
+django-redis # https://github.com/jazzband/django-redis

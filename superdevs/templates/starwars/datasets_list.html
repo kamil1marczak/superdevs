@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }} - Character Datasets
+{% endblock title %}
+
+{% block content %}
+  <h1>
+    Character Datasets
+{#    <form method="post" action="{% url "starwars:download" %}">#}
+{#      {% csrf_token %}#}
+{#      <button class="btn btn-outline-success" type="submit">{% translate 'Fetch Dataset' %}</button>#}
+{#    </form>#}
+
+    <a class="btn btn-outline-success" href="{% url "starwars:download" %}" role="button">
+      {% translate 'Fetch Dataset' %}
+    </a>
+  </h1>
+
+  {% if datasets.count %}
+    <table class="table table-hover table-sm">
+      <tbody>
+      {% for dataset in datasets %}
+        <tr>
+          <td><a href="{% url "starwars:dataset" dataset.id %}">{{ dataset.created_at }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Please fetch a dataset using the green button!</p>
+  {% endif %}
+
+{% endblock content %}

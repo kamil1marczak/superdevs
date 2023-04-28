@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ block.super }} - Character Dataset {{ dataset }}
+{% endblock title %}
+
+{% block content %}
+  <h4>
+    Character Dataset {{ dataset }}<br>
+    <small class="text-muted">{{ dataset.created_at }}</small>
+  </h4>
+  {% url "starwars:dataset" dataset.pk as dataset_url %}
+  <div class="btn-group" role="group" aria-label="Explore dataset">
+    <small>Select fields<br>to filter by:</small>
+    {% for field in fields %}
+      <a
+        class="btn {% if field in explore %}btn-dark{% else %}btn-light{% endif %}"
+        {% if field not in explore %}
+        href="{{ dataset_url }}?explore={% if explore %}{{ explore|join:"," }},{% endif %}{{ field }}"
+        {% endif %}
+        role="button"
+      >
+        {{ field }}
+      </a>
+    {% endfor %}
+  </div>
+  {% if explore %}
+    <a class="btn btn-warning" href="{{ dataset_url }}" role="button">Reset Filter</a>
+  {% endif %}
+  {{ dataset_html|safe }}
+  {% if show_load_more %}
+    <div>
+      <a class="btn btn-outline-success btn-block btn-sm" href="{{ dataset_url }}?limit={{ limit }}" role="button">
+        Load More
+      </a>
+    </div>
+  {% endif %}
+{% endblock content %}
