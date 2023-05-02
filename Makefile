@@ -1,6 +1,3 @@
-#REPO_NAME ?= "superdews_docker"
-#REGION ?= "eu-central-1"
-#PORTS ?= "80:80"
 DOCKER_PLATFORM ?= --platform=linux/amd64
 
 make_migrations:
@@ -46,14 +43,13 @@ init_all: down_db reset_db mm
 build:
 	@docker-compose -f ./local.yml build
 
+run:
+	@docker-compose -f ./local.yml up
+
 build_all: build collectstatic init_all
 
 docker_clean:
 	@docker system prune -a --volumes
 
-#
-#login_ecr:
-#	@aws ecr get-login-password --region $(REGION) || docker login --username AWS --password-stdin $(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com
-#
-#login_public:
-#	@aws ecr-public get-login-password --region us-east-1 || docker login --username AWS --password-stdin public.ecr.aws
+test:
+	@docker-compose -f ./local.yml run ---rm django pytest

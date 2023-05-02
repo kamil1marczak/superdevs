@@ -1,17 +1,66 @@
 # Superdevs
 
-Superdevs swapi project
+This is the Superdevs reqrutment task. It is a simple Django app that uses the swapi.dev API to display data about
+Star Wars characters. Task related files are located in superdevs/starwars module of app.
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
+[Task File](./TASK.md)
+
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-License: MIT
+## Envs
 
-## Settings
+to speed up the development process, envs are stored in the repository. This practice in normal circumstances is
+would be a security risk, but since this is a not-production project, It is decided to do it this way.
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+## Requirements
 
-## Basic Commands
+- docker
+- docker-compose
+- python 3.8+
+- pre-commit
+
+## Commands
+
+All critical commands are in the Makefile. Commands:
+
+- `make build` - builds the docker-compose
+- `make make_migrations` - runs django makemigrations
+- `make migrate` - runs django migrate
+- `make mm` - runs django makemigrations and migrate
+- `make superuser` - runs django createsuperuser
+- `make collectstatic` - runs django collectstatic
+- `make exportdata` - runs django dumpdata to data.json located in root directory
+- `make importdata` - runs django loaddata from data.json located in root directory
+- `make update_dep` - install pip-tools and execute pip-compile which will update the dependacies in requirements
+  files
+- `make enter_running` - enter the running container (useful for debugging)
+- `make shell_plus` - runs django shell_plus in running container
+- `make reset_db` - resets the database (deletes all data)
+- `make down_db` - stops the database container
+- `make init_all` - runes make reset_db, make down_db, make mm
+- `make build_all` - runes make build, make collectstatic, make init_all
+- `make docker_clean` - removes all docker images and containers
+- `make run` - runs the app
+- `make test` - runs the tests
+
+## Instalation
+
+To set up your local environment, you need to have docker and docker-compose installed. Then, run the following
+commands:
+
+    $ git clone https://github.com/kamil1marczak/superdevs.git
+    $ cd superdevs
+    $ pre-commit install
+    $ make build
+    $ make mm
+    $ make superuser
+    $ make collectstatic
+
+## Running the app
+
+After the instalation, you can run the app with the following command:
+
+    $ make run
 
 ### Setting Up Your Users
 
@@ -19,43 +68,10 @@ Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings
 
 - To create a **superuser account**, use this command:
 
-      $ python manage.py createsuperuser
+      $ make createsuperuser
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-### Type checks
+### Running tests with pytest
 
-Running type checks with mypy:
-
-    $ mypy superdevs
-
-### Test coverage
-
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-### Sentry
-
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
-
-You must set the DSN url in production.
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+    $ make test
