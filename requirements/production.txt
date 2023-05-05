@@ -128,7 +128,7 @@ redis==4.5.4
     # via
     #   -r requirements/base.in
     #   django-redis
-requests==2.28.2
+requests==2.30.0
     # via
     #   -r requirements/base.in
     #   django-allauth
